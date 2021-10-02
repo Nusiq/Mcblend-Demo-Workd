@@ -1,0 +1,52 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:attachable": {
+		"description": {
+			"identifier": "nusiq:nunchaku",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/nunchaku"
+			},
+			"animations": {
+				"first_person.idle": "animation.nunchaku.first_person.idle",
+				"first_person.attack": "animation.nunchaku.first_person.attack",
+				"root": "controller.animation.nunchaku.root"
+			},
+			"scripts": {
+				"pre_animation": [
+					// Get base attack_time
+					"variable.attack_time = c.owning_entity->v.attack_time;",
+					// Check if attack time value has changed
+					"variable.attack_time_increased = (v.prev_attack_time ?? 0) < v.attack_time;",
+					"variable.prev_attack_time = v.attack_time;",
+					// If value has changed save the timestamp
+					"variable.attack_time_change_timestamp = v.attack_time_increased ? q.life_time : (v.attack_time_change_timestamp??q.life_time);",
+
+					// How long is player attacking?
+					"variable.attack_timestamp = v.attack_time <= 0  ? -1 : ((v.attack_timestamp ?? -1) > 0 ? v.attack_timestamp : q.life_time);",
+					"variable.attack_duration = v.attack_timestamp == -1 ? 0.0 : q.life_time-v.attack_timestamp;",
+
+					// The speed of increasing the attack_time value based on entire attack
+					"variable.attack_time_increase_speed = variable.attack_time_increased ? (v.attack_duration > 0 ? v.attack_time/v.attack_duration : 0.0) : (variable.attack_time_increase_speed??0);",
+
+					// smoothing is <time since last recorded attack time value> * <attack time increase speed> 
+					"variable.smoothing = (q.life_time - v.attack_time_change_timestamp)*v.attack_time_increase_speed;",
+
+					// SMOOTHED ATTACK TIME
+					"variable.smoothed_attack_time = v.attack_time == 0.0 ? 0.0 : math.clamp(v.attack_time + v.smoothing, 0.0, 1.0);"
+				],
+				"animate": [
+					"root"
+				]
+			},
+			"geometry": {
+				"default": "geometry.nunchaku"
+			},
+			"render_controllers": [
+				"controller.render.default"
+			]
+		}
+	}
+}

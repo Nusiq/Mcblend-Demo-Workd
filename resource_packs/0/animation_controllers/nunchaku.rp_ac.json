@@ -1,0 +1,28 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.nunchaku.root" : {
+			"initial_state" : "first_person",
+			"states" : {
+				"first_person" : {
+					"transitions" : [
+						{
+							"third_person" : "!c.is_first_person"
+						}
+					],
+					"animations": [
+						{"first_person.idle": "variable.attack_time <= 0.0"},
+						{"first_person.attack": "variable.attack_time > 0.0"}
+					]
+				},
+				"third_person" : {
+					"transitions" : [
+						{
+							"first_person" : "c.is_first_person"
+						}
+					]
+				}
+			}
+		}
+	}
+}

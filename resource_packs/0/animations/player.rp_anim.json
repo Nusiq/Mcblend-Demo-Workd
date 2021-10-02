@@ -1,0 +1,41 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.player.first_person.nunchaku_idle": {
+			"bones": {
+				"rightArm": {
+					"position": [20.134, -10.177, 12.951],
+					"rotation": [70.893, -18.599, -176.25]
+				}
+			},
+			"loop": true,
+			"override_previous_animation": true
+		},
+		"animation.player.first_person.nunchaku_attack": {
+			"animation_length": 1.0,
+			"bones": {
+				"rightArm": {
+					"position": {
+						"0.0": [20.134, -10.177, 12.951],
+						"0.0833": [16.719, -9.165, 17.852],
+						"0.1667": [13.303, -8.153, 18.552],
+						"0.4583": [15.401, -6.753, 16.832],
+						"0.5833": [16.988, -7.288, 15.531],
+						"1.0": [20.134, -10.177, 12.951]
+					},
+					"rotation": {
+						"0.0": [70.893, -18.599, -176.25],
+						"0.0833": [20.622, 11.37, -185.101],
+						"0.1667": [74.052, 28.86, -175.941],
+						"0.4583": [39.118, 14.034, -184.89],
+						"0.5833": [45.75, -33.658, -181.805],
+						"1.0": [70.893, -18.599, -176.25]
+					}
+				}
+			},
+			"loop": "hold_on_last_frame",
+			"anim_time_update": "variable.attack_time",
+			"override_previous_animation": true
+		}
+	}
+}
